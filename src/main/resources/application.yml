@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: cardcost-api
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+  h2:
+    console:
+      enabled: true
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
+
+  data:
+    redis:
+      host: redis-service
+      port: 6379
+      client-type: lettuce
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: 10s
+
+springdoc:
+  swagger-ui:
+    enabled: true
+
+logging:
+  level:
+    org.springframework.data.redis: DEBUG
+    org.springframework.cache: DEBUG

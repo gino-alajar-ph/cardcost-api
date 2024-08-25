@@ -7,6 +7,7 @@ import com.cardcost.api.model.ClearingCost;
 import com.cardcost.api.repository.ClearingCostRepository;
 import com.cardcost.api.service.CardCostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -40,6 +41,7 @@ public class CardCostServiceImpl implements CardCostService {
     }
 
     @Override
+    @Cacheable(value = "clearingCostCache", key = "#countryCode")
     public ClearingCost getClearingCostByCountryCode(String countryCode) {
 
         return repository.findByCountryCode(countryCode)
